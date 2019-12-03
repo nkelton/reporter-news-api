@@ -1,11 +1,13 @@
 var express = require("express");
 var router = express.Router();
 
+const reporterService = require("../service/reporter-service");
 const storyService = require("../service/story-service");
 
 // routes
 router.get("/", getAll);
 router.get("/:id", getById);
+router.get("/:id/stories", getByCreatorId);
 router.post("/", create);
 router.put("/:id", update);
 router.delete("/:id", _delete);
@@ -13,36 +15,44 @@ router.delete("/:id", _delete);
 module.exports = router;
 
 function getAll(req, res, next) {
-  console.log("Getting All!!!");
-  storyService
+  reporterService
     .getAll()
-    .then(story => res.json(story))
+    .then(reporter => res.json(reporter))
     .catch(err => next(err));
 }
 
 function getById(req, res, next) {
-  storyService
+  reporterService
     .getById(req.params.id)
+    .then(reporter =>
+      reporter ? res.json(reporter) : res.json({ error: err })
+    )
+    .catch(err => next(err));
+}
+
+function getByCreatorId(req, res, next) {
+  storyService
+    .getByCreatorId(req.params.id)
     .then(story => (story ? res.json(story) : res.sendStatus(404)))
     .catch(err => next(err));
 }
 
 function create(req, res, next) {
-  storyService
+  reporterService
     .create(req.body)
     .then(() => res.json({}))
     .catch(err => next(err));
 }
 
 function update(req, res, next) {
-  storyService
+  reporterService
     .update(req.params.id, req.body)
     .then(() => res.json({}))
     .catch(err => next(err));
 }
 
 function _delete(req, res, next) {
-  storyService
+  reporterService
     .delete(req.params.id)
     .then(() => res.json({}))
     .catch(err => next(err));

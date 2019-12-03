@@ -5,7 +5,7 @@ const StorySchema = mongoose.Schema({
     type: String,
     required: true
   },
-  reporterId: {
+  creatorId: {
     type: String,
     required: true
   },
@@ -14,6 +14,7 @@ const StorySchema = mongoose.Schema({
   },
   link: {
     type: String,
+    unqiue: true,
     required: true
   },
   created: {
@@ -23,4 +24,4 @@ const StorySchema = mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("Reporter", ReporterSchema);
+module.exports = mongoose.model("Story", StorySchema);
