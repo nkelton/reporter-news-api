@@ -6,6 +6,9 @@ const ReporterSchema = mongoose.Schema({
     unqiue: true,
     required: true
   },
+  description: {
+    type: String
+  },
   searchCount: {
     type: Number,
     required: true
