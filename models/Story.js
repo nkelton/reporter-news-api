@@ -1,13 +1,20 @@
 const mongoose = require("mongoose");
 
-const ReporterSchema = mongoose.Schema({
-  name: {
+const StorySchema = mongoose.Schema({
+  title: {
     type: String,
-    unqiue: true,
+    required: true
+  },
+  reporterId: {
+    type: String,
     required: true
   },
   description: {
     type: String
+  },
+  link: {
+    type: String,
+    required: true
   },
   created: {
     type: Date,
