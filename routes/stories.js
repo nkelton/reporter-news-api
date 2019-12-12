@@ -47,5 +47,3 @@ function _delete(req, res, next) {
     .then(() => res.json({}))
     .catch(err => next(err));
 }
-
-module.exports = router;

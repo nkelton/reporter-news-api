@@ -17,6 +17,11 @@ const StorySchema = mongoose.Schema({
     unqiue: true,
     required: true
   },
+  published: {
+    type: Date,
+    default: Date.now,
+    required: true
+  },
   created: {
     type: Date,
     default: Date.now,

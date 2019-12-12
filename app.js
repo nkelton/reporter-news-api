@@ -7,10 +7,10 @@ var database = require("./_helpers/database");
 var jwt = require("./_helpers/jwt");
 var errorHandler = require("./_helpers/error-handler");
 
-var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var storiesRouter = require("./routes/stories");
 var reportersRouter = require("./routes/reporters");
+var muckrackRouter = require("./routes/muckrack");
 
 var app = express();
 
@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+app.use("/muck-rack", muckrackRouter);
 app.use("/users", usersRouter);
 app.use("/stories", storiesRouter);
 app.use("/reporters", reportersRouter);

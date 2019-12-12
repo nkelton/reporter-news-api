@@ -1,13 +1,15 @@
 const request = require("request");
 const cheerio = require("cheerio");
 const config = require("../config");
+const Story = require("../models/Story");
+const Reporter = require("../models/Reporter");
 
 module.exports = {
   getStoriesFor
 };
 
 async function getStoriesFor(res, next, reporter) {
-  request(
+  await request(
     config.muckHost + reporter + "/articles",
     { json: true },
     (err, resp, body) => {
@@ -15,6 +17,8 @@ async function getStoriesFor(res, next, reporter) {
         next(err);
       }
       const reporterData = scapeStoryData(body);
+      saveStories(reporter, reporterData);
+
       res.json(reporterData);
     }
   );
@@ -50,4 +54,23 @@ function scapeStoryData(body) {
     });
   });
   return reporterData;
+}
+
+async function saveStories(name, stories) {
+  const reporter = await Reporter.findOne({ name: name });
+
+  let reporterId;
+  if (reporter === null) {
+    const newReporter = new Reporter({ name: name, description: null });
+    await newReporter.save();
+    reporterId = await Reporter.findOne({ name: name })._id;
+  } else {
+    reporterId = reporter._id;
+  }
+
+  for (const story of stories) {
+    story.creatorId = reporterId;
+    const newStory = new Story(story);
+    await newStory.save();
+  }
 }
