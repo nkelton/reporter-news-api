@@ -70,7 +70,14 @@ async function saveStories(name, stories) {
 
   for (const story of stories) {
     story.creatorId = reporterId;
-    const newStory = new Story(story);
-    await newStory.save();
+    if (
+      (await Story.findOne({
+        creatorId: story.creatorId,
+        link: story.link
+      })) === null
+    ) {
+      const newStory = new Story(story);
+      await newStory.save();
+    }
   }
 }
