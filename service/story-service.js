@@ -3,7 +3,7 @@ const Story = require("../models/Story");
 module.exports = {
   getAll,
   getById,
-  getByCreatorId,
+  getByReporterId,
   create,
   update,
   delete: _delete
@@ -17,8 +17,8 @@ async function getById(id) {
   return await Story.findById(id).select("-hash");
 }
 
-async function getByCreatorId(creatorId) {
-  return await Story.find({ creatorId: creatorId });
+async function getByReporterId(reporterId) {
+  return await Story.find({ reporterId: reporterId });
 }
 
 async function create(storyParam) {

@@ -1,16 +1,19 @@
 var express = require("express");
 var router = express.Router();
-
 const userService = require("../service/user-service");
+const schemas = require("../validator-schema/user");
+const validator = require("../_helpers/request-validator");
 
 // routes
 router.get("/", getAll);
 router.get("/current", getCurrent);
 router.get("/:id", getById);
-router.post("/", register);
-router.post("/authenticate", authenticate);
-router.put("/:id", update);
+router.post("/", validator(schemas.userPOST, "body"), register);
+router.post("/authenticate", validator(schemas.userAUTH, "body"), authenticate);
+router.put("/:id", validator(schemas.userPUT, "body"), update);
 router.delete("/:id", _delete);
+//router.put("/:id/favorite-reporters", udateFavoriteReporters);
+//router.delete("/:id/favorite-reporters", deleteFavoriteReporters);
 
 module.exports = router;
 

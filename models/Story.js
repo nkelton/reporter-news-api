@@ -5,7 +5,7 @@ const StorySchema = mongoose.Schema({
     type: String,
     required: true
   },
-  creatorId: {
+  reporterId: {
     type: String,
     required: true
   },

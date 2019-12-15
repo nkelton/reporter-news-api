@@ -29,11 +29,6 @@ const UserSchema = mongoose.Schema({
     default: false,
     required: true
   },
-  createdStories: {
-    type: [String],
-    default: [],
-    required: true
-  },
   created: {
     type: Date,
     default: Date.now,

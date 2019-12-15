@@ -7,9 +7,11 @@ const storyService = require("../service/story-service");
 // routes
 router.get("/", getAll);
 router.get("/:id", getById);
-router.get("/:id/stories", getByCreatorId);
+router.get("/:id/stories", getByReporterId);
 router.post("/", create);
 router.put("/:id", update);
+//TODO - add story ids to reporter
+// router.put("/:id/stories", addStoryToReporter)
 router.delete("/:id", _delete);
 
 module.exports = router;
@@ -30,9 +32,9 @@ function getById(req, res, next) {
     .catch(err => next(err));
 }
 
-function getByCreatorId(req, res, next) {
+function getByReporterId(req, res, next) {
   storyService
-    .getByCreatorId(req.params.id)
+    .getByReporterId(req.params.id)
     .then(story => (story ? res.json(story) : res.sendStatus(404)))
     .catch(err => next(err));
 }

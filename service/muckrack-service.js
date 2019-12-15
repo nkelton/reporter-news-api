@@ -69,10 +69,10 @@ async function saveStories(name, stories) {
   }
 
   for (const story of stories) {
-    story.creatorId = reporterId;
+    story.reporterId = reporterId;
     if (
       (await Story.findOne({
-        creatorId: story.creatorId,
+        reporterId: reporterId,
         link: story.link
       })) === null
     ) {
