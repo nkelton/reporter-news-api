@@ -4,7 +4,7 @@ const muckrackService = require("../service/muckrack-service");
 const schema = require("../validator-schema/article-query");
 const validator = require("../_helpers/request-validator");
 
-router.get("/articles", validator(schema), getStories);
+router.get("/articles", validator(schema, "query"), getStories);
 
 module.exports = router;
 
