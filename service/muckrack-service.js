@@ -19,7 +19,7 @@ async function getStoriesFor(res, next, reporter) {
       const reporterData = scapeStoryData(body);
       saveStories(reporter, reporterData);
 
-      res.json(reporterData);
+      return res.json(reporterData);
     }
   );
 }
