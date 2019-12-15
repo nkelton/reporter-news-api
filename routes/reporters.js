@@ -1,15 +1,16 @@
 var express = require("express");
 var router = express.Router();
-
 const reporterService = require("../service/reporter-service");
 const storyService = require("../service/story-service");
+const schemas = require("../validation/schema/reporter");
+const validator = require("../validation/validator");
 
 // routes
 router.get("/", getAll);
 router.get("/:id", getById);
 router.get("/:id/stories", getByReporterId);
-router.post("/", create);
-router.put("/:id", update);
+router.post("/", validator(schemas.reporterPOST, "body"), create);
+router.put("/:id", validator(schemas.reporterPUT, "body"), update);
 //TODO - add story ids to reporter
 // router.put("/:id/stories", addStoryToReporter)
 router.delete("/:id", _delete);
