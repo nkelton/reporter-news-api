@@ -33,8 +33,8 @@ async function getById(id) {
 }
 
 async function create(userParam) {
-  if (await User.findOne({ username: userParam.username })) {
-    throw 'Username "' + userParam.name + '" is already taken';
+  if (await User.findOne({ phone: userParam.phone })) {
+    throw 'Phone "' + userParam.phone + '" is already taken';
   }
 
   const user = new User(userParam);
@@ -51,10 +51,10 @@ async function update(id, userParam) {
 
   if (!user) throw "User not found";
   if (
-    user.username !== userParam.username &&
-    (await User.findOne({ username: userParam.username }))
+    user.phone !== userParam.phone &&
+    (await User.findOne({ phone: userParam.phone }))
   ) {
-    throw 'Username "' + userParam.username + '" is already taken';
+    throw 'Phone number "' + userParam.phone + '" is already taken';
   }
 
   if (userParam.password) {

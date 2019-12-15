@@ -1,8 +1,8 @@
 var express = require("express");
 var router = express.Router();
 const userService = require("../service/user-service");
-const schemas = require("../validator-schema/user");
-const validator = require("../_helpers/request-validator");
+const schemas = require("../validation/schema/user");
+const validator = require("../validation/validator");
 
 // routes
 router.get("/", getAll);

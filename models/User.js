@@ -6,7 +6,7 @@ const UserSchema = mongoose.Schema({
     required: true
   },
   phone: {
-    type: Number,
+    type: String,
     unique: true,
     required: true
   },
@@ -22,11 +22,6 @@ const UserSchema = mongoose.Schema({
   favoriteReporters: {
     type: [String],
     default: [],
-    required: true
-  },
-  isReporter: {
-    type: Boolean,
-    default: false,
     required: true
   },
   created: {

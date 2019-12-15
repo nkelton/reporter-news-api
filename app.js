@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/muck-rack", muckrackRouter);
+app.use("/muckrack", muckrackRouter);
 app.use("/users", usersRouter);
 app.use("/stories", storiesRouter);
 app.use("/reporters", reportersRouter);

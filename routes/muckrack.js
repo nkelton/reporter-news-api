@@ -1,10 +1,10 @@
 var express = require("express");
 var router = express.Router();
 const muckrackService = require("../service/muckrack-service");
-const schema = require("../validator-schema/article-query");
-const validator = require("../_helpers/request-validator");
+const schemas = require("../validation/schema/muckrack");
+const validator = require("../validation/validator");
 
-router.get("/articles", validator(schema, "query"), getStories);
+router.get("/articles", validator(schemas.articleGET, "query"), getStories);
 
 module.exports = router;
 
