@@ -1,19 +1,19 @@
 var express = require("express");
 var router = express.Router();
-
 const storyService = require("../service/story-service");
+const schemas = require("../validation/schema/story");
+const validator = require("../validation/validator");
 
 // routes
 router.get("/", getAll);
 router.get("/:id", getById);
-router.post("/", create);
-router.put("/:id", update);
+router.post("/", validator(schemas.storyPOST, "body"), create);
+router.put("/:id", validator(schemas.storyPUT, "body"), update);
 router.delete("/:id", _delete);
 
 module.exports = router;
 
 function getAll(req, res, next) {
-  console.log("Getting All!!!");
   storyService
     .getAll()
     .then(story => res.json(story))
