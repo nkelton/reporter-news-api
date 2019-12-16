@@ -1,8 +1,5 @@
 const Joi = require("joi");
 
-const URL_REGREX =
-  "/(https?://(?:www.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|www.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|https?://(?:www.|(?!www))[a-zA-Z0-9]+.[^s]{2,}|www.[a-zA-Z0-9]+.[^s]{2,})/";
-
 const schemas = {
   storyPOST: Joi.object().keys({
     title: Joi.string()
@@ -18,7 +15,9 @@ const schemas = {
       .length(250)
       .optional(),
     link: Joi.string()
-      .regex(URL_REGREX)
+      .regex(
+        /https?:\/\/(www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/
+      )
       .required(),
     published: Joi.date().optional()
   }),
@@ -36,7 +35,9 @@ const schemas = {
       .length(250)
       .optional(),
     link: Joi.string()
-      .regex(URL_REGREX)
+      .regex(
+        /https?:\/\/(www.)?[-a-zA-Z0-9@:%._+~#=]{1,256}.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/
+      )
       .optional(),
     published: Joi.date().optional()
   })
