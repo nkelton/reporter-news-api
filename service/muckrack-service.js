@@ -3,6 +3,7 @@ const cheerio = require("cheerio");
 const config = require("../config");
 const Story = require("../models/Story");
 const Reporter = require("../models/Reporter");
+const stringUtil = require("../util/string-util");
 
 module.exports = {
   getStoriesFor
@@ -16,10 +17,10 @@ async function getStoriesFor(res, next, reporter) {
       if (err) {
         next(err);
       }
-      const reporterData = scapeStoryData(body);
-      saveStories(reporter, reporterData);
+      const storyData = scapeStoryData(body);
+      saveStories(reporter, storyData);
 
-      return res.json(reporterData);
+      return res.json(storyData);
     }
   );
 }
@@ -57,25 +58,23 @@ function scapeStoryData(body) {
 }
 
 async function saveStories(name, stories) {
-  const reporter = await Reporter.findOne({ name: name });
+  const reporterName = stringUtil.cleanName(name);
+  const reporter = await Reporter.findOne({ name: reporterName });
 
-  let reporterId;
+  let reporterDescription;
+
   if (reporter === null) {
-    const newReporter = new Reporter({ name: name, description: null });
+    const newReporter = new Reporter({ name: reporterName, description: null });
     await newReporter.save();
-    reporterId = await Reporter.findOne({ name: name })._id;
   } else {
-    reporterId = reporter._id;
+    reporterDescription = reporter.description;
   }
 
   for (const story of stories) {
-    story.reporterId = reporterId;
-    if (
-      (await Story.findOne({
-        reporterId: reporterId,
-        link: story.link
-      })) === null
-    ) {
+    if ((await Story.findOne({ link: story.link })) === null) {
+      story.reporterName = reporterName;
+      story.reporterDescription = reporterDescription;
+
       const newStory = new Story(story);
       await newStory.save();
     }

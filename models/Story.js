@@ -5,10 +5,6 @@ const StorySchema = mongoose.Schema({
     type: String,
     required: true
   },
-  reporterId: {
-    type: String,
-    required: true
-  },
   description: {
     type: String
   },
@@ -26,6 +22,13 @@ const StorySchema = mongoose.Schema({
     type: Date,
     default: Date.now,
     required: true
+  },
+  reporterName: {
+    type: String,
+    required: true
+  },
+  reporterDescription: {
+    type: String
   }
 });
 
