@@ -5,7 +5,7 @@ const schemas = require("../validation/schema/story");
 const validator = require("../validation/validator");
 
 // routes
-router.get("/", getAll);
+router.get("/", validator(schemas.storyGET, "query"), getAllByParams);
 router.get("/:id", getById);
 router.post("/", validator(schemas.storyPOST, "body"), create);
 router.put("/:id", validator(schemas.storyPUT, "body"), update);
@@ -13,10 +13,10 @@ router.delete("/:id", _delete);
 
 module.exports = router;
 
-function getAll(req, res, next) {
+function getAllByParams(req, res, next) {
   storyService
-    .getAll()
-    .then(story => res.json(story))
+    .getAllByParams(req.query)
+    .then(stories => res.json(stories))
     .catch(err => next(err));
 }
 

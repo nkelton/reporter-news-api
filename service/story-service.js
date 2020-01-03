@@ -1,24 +1,21 @@
 const Story = require("../models/Story");
+const stringUtil = require("../util/string-util");
 
 module.exports = {
-  getAll,
+  getAllByParams,
   getById,
-  getByReporterId,
   create,
   update,
   delete: _delete
 };
 
-async function getAll() {
-  return await Story.find().select("-hash");
+async function getAllByParams(params) {
+  const reporterName = stringUtil.cleanName(params.reporterName);
+  return await Story.find({ reporterName: reporterName });
 }
 
 async function getById(id) {
   return await Story.findById(id).select("-hash");
-}
-
-async function getByReporterId(reporterId) {
-  return await Story.find({ reporterId: reporterId });
 }
 
 async function create(storyParam) {

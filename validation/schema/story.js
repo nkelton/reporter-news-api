@@ -48,6 +48,13 @@ const schemas = {
     reporterDescription: Joi.string()
       .max(250)
       .optional()
+  }),
+  storyGET: Joi.object().keys({
+    reporterName: Joi.string()
+      .regex(/^[A-Za-z]+-[A-Za-z]+$/)
+      .min(1)
+      .max(100)
+      .required()
   })
 };
 

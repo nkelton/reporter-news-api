@@ -8,11 +8,8 @@ const validator = require("../validation/validator");
 // routes
 router.get("/", getAll);
 router.get("/:id", getById);
-router.get("/:id/stories", getByReporterId);
 router.post("/", validator(schemas.reporterPOST, "body"), create);
 router.put("/:id", validator(schemas.reporterPUT, "body"), update);
-//TODO - add story ids to reporter
-// router.put("/:id/stories", addStoryToReporter)
 router.delete("/:id", _delete);
 
 module.exports = router;
@@ -30,13 +27,6 @@ function getById(req, res, next) {
     .then(reporter =>
       reporter ? res.json(reporter) : res.json({ error: err })
     )
-    .catch(err => next(err));
-}
-
-function getByReporterId(req, res, next) {
-  storyService
-    .getByReporterId(req.params.id)
-    .then(story => (story ? res.json(story) : res.sendStatus(404)))
     .catch(err => next(err));
 }
 
