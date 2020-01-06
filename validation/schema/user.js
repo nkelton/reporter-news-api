@@ -38,6 +38,23 @@ const schemas = {
     password: Joi.string()
       .max(50)
       .optional()
+  }),
+  reporterForUserPUT: Joi.object().keys({
+    name: Joi.string()
+      .regex(/^[A-Za-z]+\s[A-Za-z]+$/)
+      .min(1)
+      .max(100)
+      .required(),
+    description: Joi.string()
+      .max(250)
+      .optional()
+  }),
+  reportForUserDELETE: Joi.object().keys({
+    name: Joi.string()
+      .regex(/^[A-Za-z]+\s[A-Za-z]+$/)
+      .min(1)
+      .max(100)
+      .required()
   })
 };
 

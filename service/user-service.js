@@ -9,7 +9,9 @@ module.exports = {
   getById,
   create,
   update,
-  delete: _delete
+  delete: _delete,
+  addReporterForUser,
+  deleteReporterForUser
 };
 
 async function authenticate({ phone, password }) {
@@ -68,4 +70,12 @@ async function update(id, userParam) {
 
 async function _delete(id) {
   await User.findByIdAndRemove(id);
+}
+
+async function addReporterForUser(id, reporter) {
+  await User.update({ _id: id }, { $addToSet: { name: reporter.name } });
+}
+
+async function deleteReporterForUser(id, reporter) {
+  await User.update({ _id: id }, { $pull: { name: reporter.name } });
 }

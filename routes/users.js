@@ -12,9 +12,16 @@ router.post("/", validator(schemas.userPOST, "body"), register);
 router.post("/authenticate", validator(schemas.userAUTH, "body"), authenticate);
 router.put("/:id", validator(schemas.userPUT, "body"), update);
 router.delete("/:id", _delete);
-//TODO - implement
-//router.put("/:id/favorite-reporters", updateFavoriteReporters);
-//router.delete("/:id/favorite-reporters", deleteFavoriteReporters);
+router.put(
+  "/:id/reporters",
+  validator(schemas.reporterForUserPUT, "body"),
+  addReporterForUser
+);
+router.delete(
+  "/:id/reporters",
+  validator(schemas.reportForUserDELETE, "body"),
+  deleteReporterForUser
+);
 
 module.exports = router;
 
@@ -67,6 +74,20 @@ function update(req, res, next) {
 function _delete(req, res, next) {
   userService
     .delete(req.params.id)
+    .then(() => res.json({}))
+    .catch(err => next(err));
+}
+
+function addReporterForUser(req, res, next) {
+  userService
+    .addReporterForUser(req.params.id, req.body)
+    .then(() => res.json({}))
+    .catch(err => next(err));
+}
+
+function deleteReporterForUser(req, res, next) {
+  userService
+    .deleteReporterForUser(req.params.id, req.body)
     .then(() => res.json({}))
     .catch(err => next(err));
 }
