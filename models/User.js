@@ -19,13 +19,28 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  //TODO - make nested object {reporterName, reporterDescription}
-  favoriteReporters: {
-    type: [String],
+  reporters: {
+    type: [
+      {
+        name: {
+          type: String,
+          unique: true,
+          require: true
+        },
+        description: {
+          type: String
+        }
+      }
+    ],
     default: [],
     required: true
   },
   created: {
+    type: Date,
+    default: Date.now,
+    required: true
+  },
+  updated: {
     type: Date,
     default: Date.now,
     required: true
