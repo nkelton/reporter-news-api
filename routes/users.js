@@ -12,7 +12,8 @@ router.post("/", validator(schemas.userPOST, "body"), register);
 router.post("/authenticate", validator(schemas.userAUTH, "body"), authenticate);
 router.put("/:id", validator(schemas.userPUT, "body"), update);
 router.delete("/:id", _delete);
-//router.put("/:id/favorite-reporters", udateFavoriteReporters);
+//TODO - implement
+//router.put("/:id/favorite-reporters", updateFavoriteReporters);
 //router.delete("/:id/favorite-reporters", deleteFavoriteReporters);
 
 module.exports = router;

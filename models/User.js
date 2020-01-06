@@ -19,6 +19,7 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  //TODO - make nested object {reporterName, reporterDescription}
   favoriteReporters: {
     type: [String],
     default: [],

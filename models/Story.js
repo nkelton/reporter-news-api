@@ -23,12 +23,20 @@ const StorySchema = mongoose.Schema({
     default: Date.now,
     required: true
   },
-  reporterName: {
-    type: String,
+  updated: {
+    type: Date,
+    default: Date.now,
     required: true
   },
-  reporterDescription: {
-    type: String
+  reporter: {
+    name: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: true
+    }
   }
 });
 
