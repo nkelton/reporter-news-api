@@ -1,5 +1,31 @@
 const Joi = require("joi");
 
+const reporterPOST = Joi.object()
+  .keys({
+    name: Joi.string()
+      .regex(/^[A-Za-z]+\s[A-Za-z]+$/)
+      .min(1)
+      .max(100)
+      .required(),
+    description: Joi.string()
+      .max(250)
+      .optional()
+  })
+  .required();
+
+const reporterPUT = Joi.object()
+  .keys({
+    name: Joi.string()
+      .regex(/^[A-Za-z]+\s[A-Za-z]+$/)
+      .min(1)
+      .max(100)
+      .optional(),
+    description: Joi.string()
+      .max(250)
+      .optional()
+  })
+  .optional();
+
 const schemas = {
   storyPOST: Joi.object().keys({
     title: Joi.string()
@@ -43,31 +69,5 @@ const schemas = {
       .required()
   })
 };
-
-const reporterPOST = Joi.object()
-  .keys({
-    name: Joi.string()
-      .regex(/^[A-Za-z]+\s[A-Za-z]+$/)
-      .min(1)
-      .max(100)
-      .required(),
-    description: Joi.string()
-      .max(250)
-      .optional()
-  })
-  .required();
-
-const reporterPUT = Joi.object()
-  .keys({
-    name: Joi.string()
-      .regex(/^[A-Za-z]+\s[A-Za-z]+$/)
-      .min(1)
-      .max(100)
-      .optional(),
-    description: Joi.string()
-      .max(250)
-      .optional()
-  })
-  .optional();
 
 module.exports = schemas;
