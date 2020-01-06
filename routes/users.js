@@ -19,7 +19,7 @@ router.put(
 );
 router.delete(
   "/:id/reporters",
-  validator(schemas.reportForUserDELETE, "body"),
+  validator(schemas.reporterForUserDELETE, "body"),
   deleteReporterForUser
 );
 

@@ -49,7 +49,7 @@ const schemas = {
       .max(250)
       .optional()
   }),
-  reportForUserDELETE: Joi.object().keys({
+  reporterForUserDELETE: Joi.object().keys({
     name: Joi.string()
       .regex(/^[A-Za-z]+\s[A-Za-z]+$/)
       .min(1)
